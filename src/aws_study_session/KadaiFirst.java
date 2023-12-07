@@ -28,6 +28,7 @@ public class KadaiFirst {
 			}
 			// どの数でも割り切れることなく、自身の数まできたときは素数
 			if (n == i) {
+				//TODO System.out.println → ログ args4j 外部ライブラリを使用できると良い
 				System.out.println("素数: " + n);
 				list.add(n);
 			}
