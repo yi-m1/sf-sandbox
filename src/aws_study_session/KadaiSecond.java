@@ -18,35 +18,43 @@ public class KadaiSecond {
 		List<Integer> primeNumbers = kadaisecond.getPrimeNumber(inputTarget);
 		System.out.println("素数: " + primeNumbers);
 		//TODO System.out.println → ログ log4j 外部ライブラリを使用できると良い
+		//TODO 出力は別だしがよい(5大装置それぞれでメソッドにしたほうが)
 		sc.close();
 	}
 
 	//TODO 後で、List を Set(順序修正してくれるクラスを使用) にするかな
 
+	/**
+	 * {@link #inputTarget} で指定された数の素数を求めて返却する
+	 * @param inputTarget 求める素数の数
+	 * @return 素数のリスト
+	 */
 	public List<Integer> getPrimeNumber(int inputTarget) {
-		List<Integer> list = new ArrayList<>();
-		int n = 2;
-		int i = 0;
+		List<Integer> primeNumberList = new ArrayList<>();
+		int candidatePrimeNumber = 2;
+		int divideNumber = 0;
 		int calcCount = 0; //TODO 計算量出力用 一時的
 
 		// 2から標準入力から受け取った求める素数の数までを繰り返し処理
-		while (list.size() != inputTarget) {
+		while (primeNumberList.size() != inputTarget) {
+			//TODO 実際の計算処理部分も別メソッドにしても
+			//TODO 素数判定部分 3から開始で+2でも or 偶数は飛ばす
 			// 素数判定
-			for (i = 2; i < n; i++) {
-				if (n % i == 0) {
+			for (divideNumber = 2; divideNumber < candidatePrimeNumber; divideNumber++) {
+				if (candidatePrimeNumber % divideNumber == 0) {
 					// 自身の数以外(自身より小さい自然数)で割り切れると素数ではないので、ループ終了
 					break;
 				}
 				calcCount++;
 			}
-			if (n == i) {
+			if (candidatePrimeNumber == divideNumber) {
 				// どの数でも割り切れることなく、自身の数まできたときは素数
-				list.add(n);
+				primeNumberList.add(candidatePrimeNumber);
 			}
-			n++;
+			candidatePrimeNumber++;
 		}
 		System.out.println("計算量: " + calcCount + " 回"); //TODO 一時的
-		return list;
+		return primeNumberList;
 	}
 
 }
