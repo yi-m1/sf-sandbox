@@ -51,7 +51,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int to = 102;
 					boolean primeNumberCheckFlg = true;
 					while (primeNumberCheckFlg) {
-						String primeNumberResult = primeNumberCheck(item1, "計算サーバホスト名", "計算サーバサブディレクトリ",
+						String primeNumberResult = primeNumberCheck(item1, "18.183.82.46", "aws-webapp/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
 						if (!primeNumberResult.equals("-")) {
 							primeNumberCheckFlg = false;
@@ -74,7 +74,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int to = 203;
 					boolean primeNumberCheckFlg = true;
 					while (primeNumberCheckFlg) {
-						String primeNumberResult = primeNumberCheck(item1, "計算サーバホスト名", "計算サーバサブディレクトリ",
+						String primeNumberResult = primeNumberCheck(item1, "35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
 						if (!primeNumberResult.equals("-")) {
 							primeNumberCheckFlg = false;
