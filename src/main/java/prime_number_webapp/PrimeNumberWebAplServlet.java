@@ -142,7 +142,8 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 				root = mapper.readTree(result);
 				try {
 					int num = Integer.parseInt(number);
-					JsonNode primeNumberJsonResult = root.path("primeNumberList").get(num - 1);
+					JsonNode primeNumberJsonResult = root.get(num - 1);
+//					JsonNode primeNumberJsonResult = root.path("primeNumberList").get(num - 1);
 					if (primeNumberJsonResult == null) {
 						return primeNumberResult;
 					}
