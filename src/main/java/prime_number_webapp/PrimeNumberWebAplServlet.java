@@ -74,7 +74,8 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int to = 203;
 					boolean primeNumberCheckFlg = true;
 					while (primeNumberCheckFlg) {
-						String primeNumberResult = primeNumberCheck(item1, "35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
+						String primeNumberResult = primeNumberCheck(item1, "35.78.185.41",
+								"Aws-0.0.1-SNAPSHOT/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
 						if (!primeNumberResult.equals("-")) {
 							primeNumberCheckFlg = false;
