@@ -161,7 +161,9 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 
 		} finally {
 			// クローズ
-			in.close();
+			if (in != null) {
+				in.close();
+			}
 			connection.disconnect();
 		}
 
