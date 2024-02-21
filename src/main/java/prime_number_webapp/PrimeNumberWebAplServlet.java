@@ -63,7 +63,10 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int from = 2;
 					int to = 102;
 					while (primeNumberSearchFlg) {
-						array.add(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
+						/*array.add(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
+								String.valueOf(from), String.valueOf(to)));*/
+						// 接続テスト用
+						array.add(getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
 								String.valueOf(from), String.valueOf(to)));
 						from += 202;
 						to += 202;
