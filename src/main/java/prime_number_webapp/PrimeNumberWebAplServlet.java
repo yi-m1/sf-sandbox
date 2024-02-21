@@ -6,6 +6,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 /**
  * 素数ウェブアプリのサーブレットクラス
  */
 @WebServlet("/PrimeNumberWebAplServlet")
 public class PrimeNumberWebAplServlet extends HttpServlet {
+
+	boolean primeNumberSearchFlg = true;
 
 	/**
 	 * フォームからデータを受け取る。<br>
@@ -35,13 +42,19 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		ObjectMapper mapper = new ObjectMapper();
+		ArrayNode array = mapper.createArrayNode();
+
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
 
 		// 入力されたフォームデータを取得
 		String item1 = request.getParameter("item1");
-
-		PrintWriter out = response.getWriter();
+//		try {
+		int num = Integer.parseInt(item1);
+//		} catch (NumberFormatException e) {
+//			System.out.println(e);
+//		}
 
 		new Thread() {
 			@Override
@@ -49,14 +62,9 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 				try {
 					int from = 2;
 					int to = 102;
-					boolean primeNumberCheckFlg = true;
-					while (primeNumberCheckFlg) {
-						String primeNumberResult = primeNumberCheck(item1, "18.183.82.46", "aws-webapp/PrimeNumber",
-								String.valueOf(from), String.valueOf(to));
-						if (!primeNumberResult.equals("-")) {
-							primeNumberCheckFlg = false;
-							out.println("<p>素数：" + primeNumberResult + "</p>");
-						}
+					while (primeNumberSearchFlg) {
+						array.add(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
+								String.valueOf(from), String.valueOf(to)));
 						from += 202;
 						to += 202;
 					}
@@ -72,15 +80,9 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 				try {
 					int from = 103;
 					int to = 203;
-					boolean primeNumberCheckFlg = true;
-					while (primeNumberCheckFlg) {
-						String primeNumberResult = primeNumberCheck(item1, "35.78.185.41",
-								"Aws-0.0.1-SNAPSHOT/PrimeNumber",
-								String.valueOf(from), String.valueOf(to));
-						if (!primeNumberResult.equals("-")) {
-							primeNumberCheckFlg = false;
-							out.println("<p>素数：" + primeNumberResult + "</p>");
-						}
+					while (primeNumberSearchFlg) {
+						array.add(getPrimeNumber("35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
+								String.valueOf(from), String.valueOf(to)));
 						from += 202;
 						to += 202;
 					}
@@ -90,31 +92,43 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();
 
-		//		PrintWriter out = response.getWriter();
+		String primeNumber = "-";
+		while (primeNumberSearchFlg) {
+			Iterator<JsonNode> i = array.elements();
+			List<JsonNode> list = new ArrayList<>();
+			while (i.hasNext()) {
+				list.add(i.next());
+			}
+			list.sort(Comparator.comparing(o -> o.asText()));
+			if (list.size() >= num) {
+				primeNumber = list.get(num - 1).asText();
+				setPrimeNumberSearchFlg(false);
+			}
+		}
+
+		PrintWriter out = response.getWriter();
 		out.println("<html><head></head><body>");
 		out.println("<p>その素数は・・・</p>");
-		//		out.println("<p>素数：" + primeNumber + "</p>");
+		out.println("<p>素数：" + primeNumber + "</p>");
 		out.println("</body></html>");
 	}
 
 	/**
-	 * 指定された番目の素数を返却する。
+	 * 指定された範囲の素数を返却する。
 	 * 
-	 * @param number 何番目
 	 * @param url1 計算サーバのホスト名 or IPアドレス
 	 * @param url2 計算サーバのサブディレクトリ
 	 * @param from 計算開始範囲
 	 * @param to 計算終了範囲
-	 * @return 求めた素数 または "-" を返却
+	 * @return Json形式の配列にした素数
 	 * @throws IOException 
 	 */
-	private String primeNumberCheck(String number, String url1, String url2,
+	private ArrayNode getPrimeNumber(String url1, String url2,
 			String from, String to) throws IOException {
 		String result = "";
-		String primeNumberResult = "-";
 		HttpURLConnection connection = null;
 		BufferedReader in = null;
-		JsonNode root = null;
+		ArrayNode primeNumberJsonResult = null;
 
 		try {
 			String getUrl = "http://" + url1 + ":8080/" + url2 + "?from=" + from + "&to=" + to;
@@ -139,18 +153,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 
 				// ObjectMapperを利用し JSON文字列 をJavaオブジェクトに変換する
 				ObjectMapper mapper = new ObjectMapper();
-				root = mapper.readTree(result);
-				try {
-					int num = Integer.parseInt(number);
-					JsonNode primeNumberJsonResult = root.get(num - 1);
-//					JsonNode primeNumberJsonResult = root.path("primeNumberList").get(num - 1);
-					if (primeNumberJsonResult == null) {
-						return primeNumberResult;
-					}
-					primeNumberResult = primeNumberJsonResult.asText();
-				} catch (NumberFormatException e) {
-					System.out.println(e);
-				}
+				primeNumberJsonResult = (ArrayNode) mapper.readTree(result);
 			}
 
 		} finally {
@@ -159,6 +162,10 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			connection.disconnect();
 		}
 
-		return primeNumberResult;
+		return primeNumberJsonResult;
+	}
+
+	private void setPrimeNumberSearchFlg(boolean flg) {
+		this.primeNumberSearchFlg = flg;
 	}
 }
