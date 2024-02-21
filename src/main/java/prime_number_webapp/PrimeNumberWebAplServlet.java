@@ -77,7 +77,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();
 
-		new Thread() {
+		/*new Thread() {
 			@Override
 			public void run() {
 				try {
@@ -93,7 +93,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-		}.start();
+		}.start();*/
 
 		String primeNumber = "-";
 		while (primeNumberSearchFlg) {
