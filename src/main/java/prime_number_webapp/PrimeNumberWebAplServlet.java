@@ -80,7 +80,6 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //						out.println("array=" + array); //TODO
 						from += 202;
 						to += 202;
-						setPrimeNumberSearchFlg(false); //TODO
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -107,8 +106,11 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
-		if(!primeNumberSearchFlg) { //TODO
-			out.println("array=" + array); //TODO
+		while (primeNumberSearchFlg) { //TODO
+			if (array != null) {
+				out.println("array=" + array);
+				setPrimeNumberSearchFlg(false);
+			}
 		}
 //		out.println("array=" + array); //TODO 空
 //		String primeNumber = "-";
