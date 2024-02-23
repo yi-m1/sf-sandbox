@@ -45,7 +45,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		PrintWriter out = response.getWriter(); //TODO
 //		ObjectMapper mapper = new ObjectMapper();
 //		ArrayNode array = mapper.createArrayNode();
-		Set<JsonNode> array = new TreeSet<>(); //TODO 重複なし並んでいる状態→実施している処理は削除
+		Set<ArrayNode> array = new TreeSet<>(); //TODO 重複なし並んでいる状態→実施している処理は削除
 
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
@@ -74,7 +74,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //						out.println("primeNumberResults=" + primeNumberResults); //TODO
 						for (JsonNode primeNumberResult : primeNumberResults) {
 //							out.println("primeNumberResult=" + primeNumberResult); //TODO
-							array.add(primeNumberResult);
+							array.add((ArrayNode) primeNumberResult);
 						}
 						out.println("array=" + array); //TODO
 						from += 202;
@@ -106,8 +106,8 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
-		out.println("array=" + array); //TODO 空
-		String primeNumber = "-";
+//		out.println("array=" + array); //TODO 空
+//		String primeNumber = "-";
 //		while (primeNumberSearchFlg) {
 ////			Iterator<JsonNode> i = array.elements();
 ////			out.println("i=" + i); //TODO
@@ -131,10 +131,10 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //		}
 
 //		PrintWriter out = response.getWriter(); //TODO
-		out.println("<html><head></head><body>");
-		out.println("<p>その素数は・・・</p>");
-		out.println("<p>素数：" + primeNumber + "</p>");
-		out.println("</body></html>");
+//		out.println("<html><head></head><body>");
+//		out.println("<p>その素数は・・・</p>");
+//		out.println("<p>素数：" + primeNumber + "</p>");
+//		out.println("</body></html>");
 	}
 
 	/**
