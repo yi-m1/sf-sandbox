@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 public class PrimeNumberWebAplServlet extends HttpServlet {
 
 	boolean primeNumberSearchFlg = true;
+	HttpServletResponse testResponse = null; //TODO
 
 	/**
 	 * フォームからデータを受け取る。<br>
@@ -42,6 +43,8 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		this.testResponse = response; //TODO
+		PrintWriter out = response.getWriter(); //TODO
 		ObjectMapper mapper = new ObjectMapper();
 		ArrayNode array = mapper.createArrayNode();
 
@@ -95,13 +98,16 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
+		out.println("array=" + array); //TODO
 		String primeNumber = "-";
 		while (primeNumberSearchFlg) {
 			Iterator<JsonNode> i = array.elements();
+			out.println("i=" + i); //TODO
 			List<JsonNode> list = new ArrayList<>();
 			while (i.hasNext()) {
 				list.add(i.next());
 			}
+			out.println("list=" + list); //TODO
 			list.sort(Comparator.comparing(o -> o.asText()));
 			if (list.size() >= num) {
 				primeNumber = list.get(num - 1).asText();
@@ -109,7 +115,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}
 
-		PrintWriter out = response.getWriter();
+//		PrintWriter out = response.getWriter(); //TODO
 		out.println("<html><head></head><body>");
 		out.println("<p>その素数は・・・</p>");
 		out.println("<p>素数：" + primeNumber + "</p>");
@@ -132,6 +138,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		HttpURLConnection connection = null;
 		BufferedReader in = null;
 		ArrayNode primeNumberJsonResult = null;
+		PrintWriter out = testResponse.getWriter(); //TODO
 
 		try {
 			String getUrl = "http://" + url1 + ":8080/" + url2 + "?from=" + from + "&to=" + to;
@@ -149,14 +156,17 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 				// テキストを取得する
 				in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				String tmp = "";
+				out.println("in=" + in); //TODO
 
 				while ((tmp = in.readLine()) != null) {
 					result += tmp;
 				}
+				out.println("result=" + result); //TODO
 
 				// ObjectMapperを利用し JSON文字列 をJavaオブジェクトに変換する
 				ObjectMapper mapper = new ObjectMapper();
 				primeNumberJsonResult = (ArrayNode) mapper.readTree(result);
+				out.println("primeNumberJsonResult=" + primeNumberJsonResult); //TODO
 			}
 
 		} finally {
