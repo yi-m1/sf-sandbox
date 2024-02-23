@@ -6,10 +6,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.ListIterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
@@ -45,8 +43,9 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 
 		this.testResponse = response; //TODO
 		PrintWriter out = response.getWriter(); //TODO
-		ObjectMapper mapper = new ObjectMapper();
-		ArrayNode array = mapper.createArrayNode();
+//		ObjectMapper mapper = new ObjectMapper();
+//		ArrayNode array = mapper.createArrayNode();
+		Set<ArrayNode> array = new TreeSet<ArrayNode>(); //TODO 重複なし並んでいる状態→実施している処理は削除
 
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
@@ -66,10 +65,11 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int from = 2;
 					int to = 102;
 					while (primeNumberSearchFlg) {
-						/*array.addAll(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
+						/*array.add(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
 								String.valueOf(from), String.valueOf(to)));*/
 						// 接続テスト用
-						array.addAll(getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
+						//TODO [2,3,5]の形なので、繰り返し処理で1つずつ追加なのか
+						array.add(getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
 								String.valueOf(from), String.valueOf(to)));
 						from += 202;
 						to += 202;
@@ -87,7 +87,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int from = 103;
 					int to = 203;
 					while (primeNumberSearchFlg) {
-						array.addAll(getPrimeNumber("35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
+						array.add(getPrimeNumber("35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
 								String.valueOf(from), String.valueOf(to)));
 						from += 202;
 						to += 202;
@@ -101,16 +101,22 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		out.println("array=" + array); //TODO 空
 		String primeNumber = "-";
 		while (primeNumberSearchFlg) {
-			Iterator<JsonNode> i = array.elements();
-			out.println("i=" + i); //TODO
-			List<JsonNode> list = new ArrayList<>();
-			while (i.hasNext()) {
-				list.add(i.next());
-			}
-			out.println("list=" + list); //TODO 空
-			list.sort(Comparator.comparing(o -> o.asText()));
-			if (list.size() >= num) {
-				primeNumber = list.get(num - 1).asText();
+//			Iterator<JsonNode> i = array.elements();
+//			out.println("i=" + i); //TODO
+//			List<JsonNode> list = new ArrayList<>();
+//			while (i.hasNext()) {
+//				list.add(i.next());
+//			}
+//			out.println("list=" + list); //TODO 空
+//			list.sort(Comparator.comparing(o -> o.asText()));
+			if (array.size() >= num) {
+				ListIterator<ArrayNode> iterator = (ListIterator<ArrayNode>) array.iterator();
+				while (iterator.hasNext()) {
+					if (iterator.nextIndex() == num -1) {
+						primeNumber = iterator.next().asText();
+					}
+				}
+//				primeNumber = array.get(num - 1).asText();
 				out.println("primeNumber=" + primeNumber); //TODO
 				setPrimeNumberSearchFlg(false);
 			}
