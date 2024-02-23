@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
@@ -45,7 +44,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		PrintWriter out = response.getWriter(); //TODO
 //		ObjectMapper mapper = new ObjectMapper();
 //		ArrayNode array = mapper.createArrayNode();
-		Set<ArrayNode> array = new TreeSet<>(); //TODO 重複なし並んでいる状態→実施している処理は削除
+		Set<String> array = new TreeSet<>(); //TODO 重複なし並んでいる状態→実施している処理は削除
 
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
@@ -73,9 +72,9 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 						ArrayNode primeNumberResults = getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
 //						out.println("primeNumberResults=" + primeNumberResults); //TODO
-						for (JsonNode primeNumberResult : primeNumberResults) {
+						for (Object primeNumberResult : primeNumberResults) {
 //							out.println("primeNumberResult=" + primeNumberResult); //TODO
-							array.add((ArrayNode) primeNumberResult);
+							array.add(String.valueOf(primeNumberResult));
 						}
 //						out.println("array=" + array); //TODO
 						from += 202;
