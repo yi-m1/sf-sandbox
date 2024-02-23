@@ -98,19 +98,20 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
-//		out.println("array=" + array); //TODO 空
+		out.println("array=" + array); //TODO 空
 		String primeNumber = "-";
 		while (primeNumberSearchFlg) {
 			Iterator<JsonNode> i = array.elements();
-//			out.println("i=" + i); //TODO
+			out.println("i=" + i); //TODO
 			List<JsonNode> list = new ArrayList<>();
 			while (i.hasNext()) {
 				list.add(i.next());
 			}
-//			out.println("list=" + list); //TODO 空
+			out.println("list=" + list); //TODO 空
 			list.sort(Comparator.comparing(o -> o.asText()));
 			if (list.size() >= num) {
 				primeNumber = list.get(num - 1).asText();
+				out.println("primeNumber=" + primeNumber); //TODO
 				setPrimeNumberSearchFlg(false);
 			}
 		}
