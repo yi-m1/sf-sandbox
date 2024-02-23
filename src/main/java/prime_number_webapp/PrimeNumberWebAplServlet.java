@@ -133,6 +133,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		out.println("<p>その素数は・・・</p>");
 		out.println("<p>素数：" + primeNumber + "</p>");
 		out.println("</body></html>");
+		setPrimeNumberSearchFlg(false); //TODO
 	}
 
 	/**
