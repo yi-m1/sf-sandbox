@@ -45,7 +45,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		PrintWriter out = response.getWriter(); //TODO
 //		ObjectMapper mapper = new ObjectMapper();
 //		ArrayNode array = mapper.createArrayNode();
-		Set<JsonNode> array = new TreeSet<JsonNode>(); //TODO 重複なし並んでいる状態→実施している処理は削除
+		Set<JsonNode> array = new TreeSet<>(); //TODO 重複なし並んでいる状態→実施している処理は削除
 
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
@@ -71,10 +71,10 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 						// 接続テスト用
 						ArrayNode primeNumberResults = getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
-						out.println("primeNumberResults=" + primeNumberResults); //TODO
+//						out.println("primeNumberResults=" + primeNumberResults); //TODO
 						for (JsonNode primeNumberResult : primeNumberResults) {
-							out.println("primeNumberResult=" + primeNumberResult); //TODO
-//							array.add(primeNumberResult);
+//							out.println("primeNumberResult=" + primeNumberResult); //TODO
+							array.add(primeNumberResult);
 						}
 						from += 202;
 						to += 202;
