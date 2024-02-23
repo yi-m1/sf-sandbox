@@ -66,10 +66,10 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int from = 2;
 					int to = 102;
 					while (primeNumberSearchFlg) {
-						/*array.add(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
+						/*array.addAll(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
 								String.valueOf(from), String.valueOf(to)));*/
 						// 接続テスト用
-						array.add(getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
+						array.addAll(getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
 								String.valueOf(from), String.valueOf(to)));
 						from += 202;
 						to += 202;
@@ -87,7 +87,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int from = 103;
 					int to = 203;
 					while (primeNumberSearchFlg) {
-						array.add(getPrimeNumber("35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
+						array.addAll(getPrimeNumber("35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
 								String.valueOf(from), String.valueOf(to)));
 						from += 202;
 						to += 202;
@@ -157,12 +157,12 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 				// テキストを取得する
 				in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				String tmp = "";
-				out.println("in=" + in); //TODO
+//				out.println("in=" + in); //TODO
 
 				while ((tmp = in.readLine()) != null) {
 					result += tmp;
 				}
-				out.println("result=" + result); //TODO
+//				out.println("result=" + result); //TODO
 
 				// ObjectMapperを利用し JSON文字列 をJavaオブジェクトに変換する
 				ObjectMapper mapper = new ObjectMapper();
