@@ -76,8 +76,10 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //							out.println("primeNumberResult=" + primeNumberResult); //TODO
 							array.add(primeNumberResult);
 						}
+						out.println("array=" + array); //TODO
 						from += 202;
 						to += 202;
+						setPrimeNumberSearchFlg(false); //TODO
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -133,7 +135,6 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		out.println("<p>その素数は・・・</p>");
 		out.println("<p>素数：" + primeNumber + "</p>");
 		out.println("</body></html>");
-		setPrimeNumberSearchFlg(false); //TODO
 	}
 
 	/**
