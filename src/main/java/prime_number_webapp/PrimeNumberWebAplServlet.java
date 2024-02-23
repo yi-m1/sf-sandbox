@@ -107,7 +107,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		}.start();*/
 
 		while (primeNumberSearchFlg) { //TODO
-			if (array != null) {
+			if (array.size() > 0) {
 				out.println("array=" + array);
 				setPrimeNumberSearchFlg(false);
 			}
