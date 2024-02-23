@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
@@ -45,7 +46,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		PrintWriter out = response.getWriter(); //TODO
 //		ObjectMapper mapper = new ObjectMapper();
 //		ArrayNode array = mapper.createArrayNode();
-		Set<ArrayNode> array = new TreeSet<ArrayNode>(); //TODO 重複なし並んでいる状態→実施している処理は削除
+		Set<JsonNode> array = new TreeSet<JsonNode>(); //TODO 重複なし並んでいる状態→実施している処理は削除
 
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
@@ -65,12 +66,16 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int from = 2;
 					int to = 102;
 					while (primeNumberSearchFlg) {
+						//TODO コメントアウト除去する際には下と合わせる
 						/*array.add(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
 								String.valueOf(from), String.valueOf(to)));*/
 						// 接続テスト用
-						//TODO [2,3,5]の形なので、繰り返し処理で1つずつ追加なのか
-						array.add(getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
-								String.valueOf(from), String.valueOf(to)));
+						ArrayNode primeNumberResults = getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
+								String.valueOf(from), String.valueOf(to));
+						out.println("primeNumberResults=" + primeNumberResults); //TODO
+						for (JsonNode primeNumberResult : primeNumberResults) {
+							array.add(primeNumberResult);
+						}
 						from += 202;
 						to += 202;
 					}
@@ -80,6 +85,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();
 
+		//TODO コメントアウト除去する際には上と合わせる
 		/*new Thread() {
 			@Override
 			public void run() {
@@ -110,7 +116,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //			out.println("list=" + list); //TODO 空
 //			list.sort(Comparator.comparing(o -> o.asText()));
 			if (array.size() >= num) {
-				ListIterator<ArrayNode> iterator = (ListIterator<ArrayNode>) array.iterator();
+				ListIterator<JsonNode> iterator = (ListIterator<JsonNode>) array.iterator();
 				while (iterator.hasNext()) {
 					if (iterator.nextIndex() == num -1) {
 						primeNumber = iterator.next().asText();
