@@ -98,16 +98,16 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
-		out.println("array=" + array); //TODO
+//		out.println("array=" + array); //TODO 空
 		String primeNumber = "-";
 		while (primeNumberSearchFlg) {
 			Iterator<JsonNode> i = array.elements();
-			out.println("i=" + i); //TODO
+//			out.println("i=" + i); //TODO
 			List<JsonNode> list = new ArrayList<>();
 			while (i.hasNext()) {
 				list.add(i.next());
 			}
-			out.println("list=" + list); //TODO
+//			out.println("list=" + list); //TODO 空
 			list.sort(Comparator.comparing(o -> o.asText()));
 			if (list.size() >= num) {
 				primeNumber = list.get(num - 1).asText();
@@ -151,6 +151,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			connection.connect();
 			// レスポンスコードを判断する、OKであれば、進める
 			int responseCode = connection.getResponseCode();
+			out.println("responseCode=" + responseCode); //TODO
 			if (responseCode == HttpURLConnection.HTTP_OK) {
 				// 通信に成功した
 				// テキストを取得する
@@ -166,7 +167,6 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 				// ObjectMapperを利用し JSON文字列 をJavaオブジェクトに変換する
 				ObjectMapper mapper = new ObjectMapper();
 				primeNumberJsonResult = (ArrayNode) mapper.readTree(result);
-				out.println("primeNumberJsonResult=" + primeNumberJsonResult); //TODO
 			}
 
 		} finally {
@@ -177,6 +177,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			connection.disconnect();
 		}
 
+		out.println("primeNumberJsonResult=" + primeNumberJsonResult); //TODO
 		return primeNumberJsonResult;
 	}
 
