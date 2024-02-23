@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ListIterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -74,7 +73,8 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 								String.valueOf(from), String.valueOf(to));
 						out.println("primeNumberResults=" + primeNumberResults); //TODO
 						for (JsonNode primeNumberResult : primeNumberResults) {
-							array.add(primeNumberResult);
+							out.println("primeNumberResult=" + primeNumberResult); //TODO
+//							array.add(primeNumberResult);
 						}
 						from += 202;
 						to += 202;
@@ -106,27 +106,27 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 
 		out.println("array=" + array); //TODO 空
 		String primeNumber = "-";
-		while (primeNumberSearchFlg) {
-//			Iterator<JsonNode> i = array.elements();
-//			out.println("i=" + i); //TODO
-//			List<JsonNode> list = new ArrayList<>();
-//			while (i.hasNext()) {
-//				list.add(i.next());
+//		while (primeNumberSearchFlg) {
+////			Iterator<JsonNode> i = array.elements();
+////			out.println("i=" + i); //TODO
+////			List<JsonNode> list = new ArrayList<>();
+////			while (i.hasNext()) {
+////				list.add(i.next());
+////			}
+////			out.println("list=" + list); //TODO 空
+////			list.sort(Comparator.comparing(o -> o.asText()));
+//			if (array.size() >= num) {
+//				ListIterator<JsonNode> iterator = (ListIterator<JsonNode>) array.iterator();
+//				while (iterator.hasNext()) {
+//					if (iterator.nextIndex() == num -1) {
+//						primeNumber = iterator.next().asText();
+//					}
+//				}
+////				primeNumber = array.get(num - 1).asText();
+//				out.println("primeNumber=" + primeNumber); //TODO
+//				setPrimeNumberSearchFlg(false);
 //			}
-//			out.println("list=" + list); //TODO 空
-//			list.sort(Comparator.comparing(o -> o.asText()));
-			if (array.size() >= num) {
-				ListIterator<JsonNode> iterator = (ListIterator<JsonNode>) array.iterator();
-				while (iterator.hasNext()) {
-					if (iterator.nextIndex() == num -1) {
-						primeNumber = iterator.next().asText();
-					}
-				}
-//				primeNumber = array.get(num - 1).asText();
-				out.println("primeNumber=" + primeNumber); //TODO
-				setPrimeNumberSearchFlg(false);
-			}
-		}
+//		}
 
 //		PrintWriter out = response.getWriter(); //TODO
 		out.println("<html><head></head><body>");
