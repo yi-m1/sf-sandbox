@@ -64,6 +64,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 				try {
 					int from = 2;
 					int to = 102;
+//					PrintWriter out = response.getWriter(); //TODO
 					while (primeNumberSearchFlg) {
 						//TODO コメントアウト除去する際には下と合わせる
 						/*array.add(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
@@ -76,7 +77,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //							out.println("primeNumberResult=" + primeNumberResult); //TODO
 							array.add((ArrayNode) primeNumberResult);
 						}
-						out.println("array=" + array); //TODO
+//						out.println("array=" + array); //TODO
 						from += 202;
 						to += 202;
 						setPrimeNumberSearchFlg(false); //TODO
@@ -106,6 +107,9 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
+		if(!primeNumberSearchFlg) { //TODO
+			out.println("array=" + array); //TODO
+		}
 //		out.println("array=" + array); //TODO 空
 //		String primeNumber = "-";
 //		while (primeNumberSearchFlg) {
