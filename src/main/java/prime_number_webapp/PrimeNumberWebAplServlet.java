@@ -108,9 +108,10 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
+		out.println("num="); //TODO
 //		String primeNumber = "-";
 		while (primeNumberSearchFlg) { //TODO
-			out.println("num=" + num);
+//			out.println("num=" + num);
 //			out.println("arraySize=" + array.size());
 //			out.println("<html><head></head><body>");
 			if (array.size() >= num) {
