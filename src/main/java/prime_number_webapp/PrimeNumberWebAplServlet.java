@@ -112,7 +112,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		String primeNumber = "-";
 		while (primeNumberSearchFlg) { //TODO
 //			out.println("num=" + num);
-			out.println("arraySize=" + array.size());
+//			out.println("arraySize=" + array.size());
 //			out.println("<html><head></head><body>");
 			if (array.size() >= num) {
 				out.println("arraySize=" + array.size());
