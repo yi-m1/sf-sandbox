@@ -115,7 +115,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 				setPrimeNumberSearchFlg(false);
 			}
 		}
-//		out.println("array=" + array); //TODO 空
+		out.println("array=" + array); //TODO 空
 //		String primeNumber = "-";
 //		while (primeNumberSearchFlg) {
 ////			Iterator<JsonNode> i = array.elements();
