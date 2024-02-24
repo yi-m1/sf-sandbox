@@ -113,9 +113,9 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		while (primeNumberSearchFlg) { //TODO
 //			out.println("num=" + num);
 //			out.println("arraySize=" + array.size());
+			out.println("<html><head></head><body>");
 			if (array.size() >= num) {
 //				out.println("arraySize=" + array.size());
-				out.println("<html><head></head><body>");
 				out.println("<p>その素数は・・・</p>");
 				ListIterator<String> iterator = (ListIterator<String>) array.iterator();
 				while (iterator.hasNext()) {
