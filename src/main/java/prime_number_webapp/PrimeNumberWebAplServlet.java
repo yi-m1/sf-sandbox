@@ -108,14 +108,17 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
-		out.println("num="); //TODO
 //		String primeNumber = "-";
-		while (primeNumberSearchFlg) { //TODO
+	new Thread() {
+	@Override
+	public void run() {
+		out.println("num=" + num);
+while (primeNumberSearchFlg) { //TODO
 //			out.println("num=" + num);
 //			out.println("arraySize=" + array.size());
 //			out.println("<html><head></head><body>");
-			if (array.size() >= num) {
-				out.println("arraySize=" + array.size());
+		if (array.size() >= num) {
+			out.println("arraySize=" + array.size());
 //				out.println("<p>その素数は・・・</p>");
 //				ListIterator<String> iterator = (ListIterator<String>) array.iterator();
 //				while (iterator.hasNext()) {
@@ -124,9 +127,11 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //						out.println("primeNumber=" + primeNumber);
 //					}
 //				}
-				setPrimeNumberSearchFlg(false);
-			}
+			setPrimeNumberSearchFlg(false);
 		}
+}
+	}
+}.start();
 //		out.println("array=" + array); //TODO 空
 //		String primeNumber = "-";
 //		while (primeNumberSearchFlg) {
