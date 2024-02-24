@@ -109,13 +109,14 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		}.start();*/
 
 		while (primeNumberSearchFlg) { //TODO
-//			out.println("active=OK");
+			out.println("num=" + num);
+			out.println("arraySize=" + array.size());
 			if (array.size() >= num) {
 				out.println("arraySize=" + array.size());
 				setPrimeNumberSearchFlg(false);
 			}
 		}
-		out.println("array=" + array); //TODO 空
+//		out.println("array=" + array); //TODO 空
 //		String primeNumber = "-";
 //		while (primeNumberSearchFlg) {
 ////			Iterator<JsonNode> i = array.elements();
