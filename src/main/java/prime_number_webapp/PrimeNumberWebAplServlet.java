@@ -76,7 +76,10 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //							out.println("primeNumberResult=" + primeNumberResult); //TODO
 							array.add(String.valueOf(primeNumberResult));
 						}
-						out.println("arraySize=" + array.size()); //TODO
+						if (array.size() >= num) { //TODO
+							setPrimeNumberSearchFlg(false);
+						}
+//						out.println("arraySize=" + array.size()); //TODO
 						from += 202;
 						to += 202;
 					}
@@ -107,8 +110,8 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 
 		while (primeNumberSearchFlg) { //TODO
 //			out.println("active=OK");
-			if (array.size() > 0) {
-				out.println("array=" + array);
+			if (array.size() >= num) {
+				out.println("arraySize=" + array.size());
 				setPrimeNumberSearchFlg(false);
 			}
 		}
