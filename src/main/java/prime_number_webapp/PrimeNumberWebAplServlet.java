@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 @WebServlet("/PrimeNumberWebAplServlet")
 public class PrimeNumberWebAplServlet extends HttpServlet {
 
-	boolean primeNumberSearchFlg = true;
+	static boolean primeNumberSearchFlg = true;
 	HttpServletResponse testResponse = null; //TODO
 
 	/**
@@ -115,7 +115,6 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 				setPrimeNumberSearchFlg(false);
 			}
 		}
-		out.println("arraySize=" + array.size()); //TODO
 //		out.println("array=" + array); //TODO 空
 //		String primeNumber = "-";
 //		while (primeNumberSearchFlg) {
@@ -206,7 +205,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		return primeNumberJsonResult;
 	}
 
-	private void setPrimeNumberSearchFlg(boolean flg) {
-		this.primeNumberSearchFlg = flg;
+	private static void setPrimeNumberSearchFlg(boolean flg) {
+		primeNumberSearchFlg = flg;
 	}
 }
