@@ -114,7 +114,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //			out.println("arraySize=" + array.size());
 //			out.println("<html><head></head><body>");
 			if (array.size() >= num) {
-//				out.println("arraySize=" + array.size());
+				out.println("arraySize=" + array.size());
 //				out.println("<p>その素数は・・・</p>");
 //				ListIterator<String> iterator = (ListIterator<String>) array.iterator();
 //				while (iterator.hasNext()) {
@@ -151,11 +151,10 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //		}
 
 //		PrintWriter out = response.getWriter(); //TODO
-		out.println("<html><head></head><body>");
-		out.println("<p>その素数は・・・</p>");
+//		out.println("<html><head></head><body>");
+//		out.println("<p>その素数は・・・</p>");
 //		out.println("<p>素数：" + primeNumber + "</p>");
-		out.println("arraySize=" + array.size());
-		out.println("</body></html>");
+//		out.println("</body></html>");
 	}
 
 	/**
