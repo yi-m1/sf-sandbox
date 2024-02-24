@@ -106,7 +106,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		}.start();*/
 
 		while (primeNumberSearchFlg) { //TODO
-			out.println("動いている");
+			out.println("active=OK");
 			if (array.size() > 0) {
 				out.println("array=" + array);
 				setPrimeNumberSearchFlg(false);
@@ -172,7 +172,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			connection.connect();
 			// レスポンスコードを判断する、OKであれば、進める
 			int responseCode = connection.getResponseCode();
-			out.println("responseCode=" + responseCode); //TODO
+//			out.println("responseCode=" + responseCode); //TODO
 			if (responseCode == HttpURLConnection.HTTP_OK) {
 				// 通信に成功した
 				// テキストを取得する
@@ -198,7 +198,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			connection.disconnect();
 		}
 
-		out.println("primeNumberJsonResult=" + primeNumberJsonResult); //TODO
+//		out.println("primeNumberJsonResult=" + primeNumberJsonResult); //TODO
 		return primeNumberJsonResult;
 	}
 
