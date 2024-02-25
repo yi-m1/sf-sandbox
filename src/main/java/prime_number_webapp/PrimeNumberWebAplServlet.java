@@ -64,10 +64,6 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int from = 2;
 					int to = 102;
 					while (primeNumberSearchFlg) {
-						//TODO コメントアウト除去する際には下と合わせる
-						/*array.add(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
-								String.valueOf(from), String.valueOf(to)));*/
-						// 接続テスト用
 						ArrayNode primeNumberResults = getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
 						if (primeNumberResults == null) {
@@ -88,16 +84,24 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();
 
-		//TODO コメントアウト除去する際には上と合わせる
-		/*new Thread() {
+		new Thread() {
 			@Override
 			public void run() {
 				try {
 					int from = 103;
 					int to = 203;
 					while (primeNumberSearchFlg) {
-						array.add(getPrimeNumber("35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
-								String.valueOf(from), String.valueOf(to)));
+						ArrayNode primeNumberResults = getPrimeNumber("35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
+								String.valueOf(from), String.valueOf(to));
+						if (primeNumberResults == null) {
+							continue;
+						}
+						for (Object primeNumberResult : primeNumberResults) {
+							primeNumbers.add(Integer.parseInt(primeNumberResult.toString()));
+						}
+						if (primeNumbers.size() >= num * 2) {
+							setPrimeNumberSearchFlg(false);
+						}
 						from += 202;
 						to += 202;
 					}
@@ -105,7 +109,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-		}.start();*/
+		}.start();
 
 		while (primeNumberSearchFlg) {
 			out.println("<html><head></head><body>");
