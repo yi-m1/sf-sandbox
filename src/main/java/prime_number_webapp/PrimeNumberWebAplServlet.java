@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 public class PrimeNumberWebAplServlet extends HttpServlet {
 
 	static boolean primeNumberSearchFlg = true;
-	HttpServletResponse testResponse = null; //TODO
 
 	/**
 	 * フォームからデータを受け取る。<br>
@@ -39,17 +38,16 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		this.testResponse = response; //TODO
-//		ObjectMapper mapper = new ObjectMapper();
-//		ArrayNode array = mapper.createArrayNode();
-		TreeSet<Integer> array = new TreeSet<Integer>(); //TODO 重複なし並んでいる状態→実施している処理は削除, 変数名
+		// 小さい素数から何番目と検索する為、
+		// 重複なし、昇順になる TreeSet を使用
+		TreeSet<Integer> primeNumbers = new TreeSet<Integer>();
 
 		setPrimeNumberSearchFlg(true);
 
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
 
-		PrintWriter out = response.getWriter(); //TODO
+		PrintWriter out = response.getWriter();
 
 		// 入力されたフォームデータを取得
 		String item1 = request.getParameter("item1");
@@ -65,7 +63,6 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 				try {
 					int from = 2;
 					int to = 102;
-//					PrintWriter out = response.getWriter(); //TODO
 					while (primeNumberSearchFlg) {
 						//TODO コメントアウト除去する際には下と合わせる
 						/*array.add(getPrimeNumber("18.183.82.46", "aws-webapp/PrimeNumber",
@@ -73,15 +70,12 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 						// 接続テスト用
 						ArrayNode primeNumberResults = getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
-//						out.println("primeNumberResults=" + primeNumberResults); //TODO
 						for (Object primeNumberResult : primeNumberResults) {
-//							out.println("primeNumberResult=" + primeNumberResult); //TODO
-							array.add(Integer.parseInt(primeNumberResult.toString()));
+							primeNumbers.add(Integer.parseInt(primeNumberResult.toString()));
 						}
-						if (array.size() >= num) { //TODO
+						if (primeNumbers.size() >= num * 2) {
 							setPrimeNumberSearchFlg(false);
 						}
-//						out.println("arraySize=" + array.size()); //TODO
 						from += 202;
 						to += 202;
 					}
@@ -110,57 +104,28 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
-while (primeNumberSearchFlg) { //TODO
-//			out.println("num=" + num);
-//			out.println("arraySize=" + array.size());
+		while (primeNumberSearchFlg) {
 			out.println("<html><head></head><body>");
-		if (array.size() >= num) {
-			int count = 1;
-			for(Integer primeNumber : array){
-				if (count == num) {
-					out.println("<p><font size=\"+3\">その素数は・・・</font></p>");
-					out.println("<p style=\"font-weight: bold;\"><font size=\"+4\">" + primeNumber + "</font></p>");
+			if (primeNumbers.size() >= num * 2) {
+				if (num < 1) {
+					out.println("<p style=\"font-weight: bold;\"><font size=\"+4\">1以上を入力してください。</font></p>");
 					out.println("</body></html>");
-					break;
-				} //TODO 指定した番目の素数が取得できているか確認
-				count++;
+				} else {
+					int count = 1;
+					for (Integer primeNumber : primeNumbers) {
+						if (count == num) {
+							out.println("<p><font size=\"+3\">その素数は・・・</font></p>");
+							out.println("<p style=\"font-weight: bold;\"><font size=\"+4\">"
+									+ primeNumber + "</font></p>");
+							out.println("</body></html>");
+							break;
+						}
+						count++;
+					}
+				}
+				setPrimeNumberSearchFlg(false);
 			}
-			//TODO forの中で出力まで実施 or 外で出力
-//			out.println("arraySize=" + array.size());
-//				out.println("<p>その素数は・・・</p>"); //TODO ここだと文字化けする
-//						out.println("primeNumber=" + primeNumber);
-			setPrimeNumberSearchFlg(false);
 		}
-		}
-//		out.println("array=" + array); //TODO 空
-//		String primeNumber = "-";
-//		while (primeNumberSearchFlg) {
-////			Iterator<JsonNode> i = array.elements();
-////			out.println("i=" + i); //TODO
-////			List<JsonNode> list = new ArrayList<>();
-////			while (i.hasNext()) {
-////				list.add(i.next());
-////			}
-////			out.println("list=" + list); //TODO 空
-////			list.sort(Comparator.comparing(o -> o.asText()));
-//			if (array.size() >= num) {
-//				ListIterator<JsonNode> iterator = (ListIterator<JsonNode>) array.iterator();
-//				while (iterator.hasNext()) {
-//					if (iterator.nextIndex() == num -1) {
-//						primeNumber = iterator.next().asText();
-//					}
-//				}
-////				primeNumber = array.get(num - 1).asText();
-//				out.println("primeNumber=" + primeNumber); //TODO
-//				setPrimeNumberSearchFlg(false);
-//			}
-//		}
-
-//		PrintWriter out = response.getWriter(); //TODO
-//		out.println("<html><head></head><body>");
-//		out.println("<p>その素数は・・・</p>");
-//		out.println("<p>素数：" + primeNumber + "</p>");
-//		out.println("</body></html>");
 	}
 
 	/**
@@ -179,7 +144,6 @@ while (primeNumberSearchFlg) { //TODO
 		HttpURLConnection connection = null;
 		BufferedReader in = null;
 		ArrayNode primeNumberJsonResult = null;
-		PrintWriter out = testResponse.getWriter(); //TODO
 
 		try {
 			String getUrl = "http://" + url1 + ":8080/" + url2 + "?from=" + from + "&to=" + to;
@@ -192,18 +156,15 @@ while (primeNumberSearchFlg) { //TODO
 			connection.connect();
 			// レスポンスコードを判断する、OKであれば、進める
 			int responseCode = connection.getResponseCode();
-//			out.println("responseCode=" + responseCode); //TODO
 			if (responseCode == HttpURLConnection.HTTP_OK) {
 				// 通信に成功した
 				// テキストを取得する
 				in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				String tmp = "";
-//				out.println("in=" + in); //TODO
 
 				while ((tmp = in.readLine()) != null) {
 					result += tmp;
 				}
-//				out.println("result=" + result); //TODO
 
 				// ObjectMapperを利用し JSON文字列 をJavaオブジェクトに変換する
 				ObjectMapper mapper = new ObjectMapper();
@@ -218,7 +179,6 @@ while (primeNumberSearchFlg) { //TODO
 			connection.disconnect();
 		}
 
-//		out.println("primeNumberJsonResult=" + primeNumberJsonResult); //TODO
 		return primeNumberJsonResult;
 	}
 
