@@ -70,6 +70,9 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 						// 接続テスト用
 						ArrayNode primeNumberResults = getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
+						if (primeNumberResults == null) {
+							continue;
+						}
 						for (Object primeNumberResult : primeNumberResults) {
 							primeNumbers.add(Integer.parseInt(primeNumberResult.toString()));
 						}
