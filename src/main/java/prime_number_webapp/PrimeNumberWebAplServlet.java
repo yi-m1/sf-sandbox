@@ -107,17 +107,23 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
-		String primeNumber = "-";
 while (primeNumberSearchFlg) { //TODO
 //			out.println("num=" + num);
 //			out.println("arraySize=" + array.size());
 			out.println("<html><head></head><body>");
 		if (array.size() >= num) {
-			for(Integer tmp : array){
-				out.println(tmp);
+			int count = 1;
+			for(Integer primeNumber : array){
+				if (count == num) {
+					out.println("<p>その素数は・・・</p>");
+					out.println("<p>素数：" + primeNumber + "</p>");
+					out.println("</body></html>");
+					break;
+				} //TODO 指定した番目の素数が取得できているか確認
+				count++;
 			}
 			//TODO forの中で出力まで実施 or 外で出力
-			out.println("arraySize=" + array.size());
+//			out.println("arraySize=" + array.size());
 //				out.println("<p>その素数は・・・</p>"); //TODO ここだと文字化けする
 //						out.println("primeNumber=" + primeNumber);
 			setPrimeNumberSearchFlg(false);
