@@ -44,6 +44,8 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //		ArrayNode array = mapper.createArrayNode();
 		TreeSet<Integer> array = new TreeSet<Integer>(); //TODO 重複なし並んでいる状態→実施している処理は削除, 変数名
 
+		setPrimeNumberSearchFlg(true);
+
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
 
