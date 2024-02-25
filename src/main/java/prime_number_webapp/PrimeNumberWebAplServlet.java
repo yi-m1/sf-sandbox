@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ListIterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -108,24 +109,25 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			}
 		}.start();*/
 
-//		String primeNumber = "-";
+		String primeNumber = "-";
 while (primeNumberSearchFlg) { //TODO
 //			out.println("num=" + num);
 //			out.println("arraySize=" + array.size());
 			out.println("<html><head></head><body>");
 		if (array.size() >= num) {
-			out.println("arraySize=" + array.size());
+//			out.println("arraySize=" + array.size());
 //				out.println("<p>その素数は・・・</p>");
-//				ListIterator<String> iterator = (ListIterator<String>) array.iterator();
-//				while (iterator.hasNext()) {
-//					if (iterator.nextIndex() == num -1) {
-//						primeNumber = iterator.next();
+				ListIterator<String> iterator = (ListIterator<String>) array.iterator();
+				while (iterator.hasNext()) {
+					if (iterator.nextIndex() == num -1) {
+						primeNumber = iterator.next();
 //						out.println("primeNumber=" + primeNumber);
-//					}
-//				}
+						out.println("arraySize=" + array.size());
+					}
+				}
 			setPrimeNumberSearchFlg(false);
 		}
-}
+		}
 //		out.println("array=" + array); //TODO 空
 //		String primeNumber = "-";
 //		while (primeNumberSearchFlg) {
