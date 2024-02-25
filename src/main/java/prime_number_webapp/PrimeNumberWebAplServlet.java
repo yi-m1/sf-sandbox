@@ -116,8 +116,8 @@ while (primeNumberSearchFlg) { //TODO
 			int count = 1;
 			for(Integer primeNumber : array){
 				if (count == num) {
-					out.println("<p>その素数は・・・</p>");
-					out.println("<p>素数：" + primeNumber + "</p>");
+					out.println("<p><font size=\"+3\">その素数は・・・</font></p>");
+					out.println("<p style=\"font-weight: bold;\"><font size=\"+4\">" + primeNumber + "</font></p>");
 					out.println("</body></html>");
 					break;
 				} //TODO 指定した番目の素数が取得できているか確認
