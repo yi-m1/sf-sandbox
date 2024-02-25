@@ -114,9 +114,10 @@ while (primeNumberSearchFlg) { //TODO
 //			out.println("arraySize=" + array.size());
 			out.println("<html><head></head><body>");
 		if (array.size() >= num) {
-			for(String tmp : array){
-				out.println(tmp);
-			}
+			out.println(array);
+//			for(String tmp : array){
+//				out.println(tmp);
+//			}
 			//TODO forの中で出力まで実施 or 外で出力
 //			out.println("arraySize=" + array.size());
 //				out.println("<p>その素数は・・・</p>"); //TODO ここだと文字化けする
