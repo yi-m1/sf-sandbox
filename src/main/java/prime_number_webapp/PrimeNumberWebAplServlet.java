@@ -44,7 +44,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		PrintWriter out = response.getWriter(); //TODO
 //		ObjectMapper mapper = new ObjectMapper();
 //		ArrayNode array = mapper.createArrayNode();
-		Set<String> array = new TreeSet<>(); //TODO 重複なし並んでいる状態→実施している処理は削除
+		Set<String> array = new TreeSet<>(); //TODO 重複なし並んでいる状態→実施している処理は削除, 変数名
 
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
@@ -114,8 +114,12 @@ while (primeNumberSearchFlg) { //TODO
 //			out.println("arraySize=" + array.size());
 			out.println("<html><head></head><body>");
 		if (array.size() >= num) {
+			for(String tmp : array){
+				out.println(tmp);
+			}
+			//TODO forの中で出力まで実施 or 外で出力
 //			out.println("arraySize=" + array.size());
-				out.println("<p>その素数は・・・</p>");
+//				out.println("<p>その素数は・・・</p>"); //TODO ここだと文字化けする
 //						out.println("primeNumber=" + primeNumber);
 			setPrimeNumberSearchFlg(false);
 		}
