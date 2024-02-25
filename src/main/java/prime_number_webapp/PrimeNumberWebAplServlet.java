@@ -40,13 +40,14 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		this.testResponse = response; //TODO
-		PrintWriter out = response.getWriter(); //TODO
 //		ObjectMapper mapper = new ObjectMapper();
 //		ArrayNode array = mapper.createArrayNode();
 		TreeSet<Integer> array = new TreeSet<Integer>(); //TODO 重複なし並んでいる状態→実施している処理は削除, 変数名
 
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
+
+		PrintWriter out = response.getWriter(); //TODO
 
 		// 入力されたフォームデータを取得
 		String item1 = request.getParameter("item1");
