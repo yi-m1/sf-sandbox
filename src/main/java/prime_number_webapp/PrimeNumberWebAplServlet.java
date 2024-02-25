@@ -73,7 +73,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //						out.println("primeNumberResults=" + primeNumberResults); //TODO
 						for (Object primeNumberResult : primeNumberResults) {
 //							out.println("primeNumberResult=" + primeNumberResult); //TODO
-							array.add(((Number) primeNumberResult).intValue());
+							array.add(Integer.parseInt(primeNumberResult.toString()));
 						}
 						if (array.size() >= num) { //TODO
 							setPrimeNumberSearchFlg(false);
