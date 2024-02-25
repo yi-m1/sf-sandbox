@@ -43,7 +43,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 		PrintWriter out = response.getWriter(); //TODO
 //		ObjectMapper mapper = new ObjectMapper();
 //		ArrayNode array = mapper.createArrayNode();
-		TreeSet<String> array = new TreeSet<String>(); //TODO 重複なし並んでいる状態→実施している処理は削除, 変数名
+		TreeSet<Integer> array = new TreeSet<Integer>(); //TODO 重複なし並んでいる状態→実施している処理は削除, 変数名
 
 		// Content Typeを設定
 		response.setContentType("text/html; charset=Shift_JIS");
@@ -73,7 +73,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 //						out.println("primeNumberResults=" + primeNumberResults); //TODO
 						for (Object primeNumberResult : primeNumberResults) {
 //							out.println("primeNumberResult=" + primeNumberResult); //TODO
-							array.add(String.valueOf(primeNumberResult));
+							array.add((Integer) primeNumberResult);
 						}
 						if (array.size() >= num) { //TODO
 							setPrimeNumberSearchFlg(false);
@@ -113,11 +113,11 @@ while (primeNumberSearchFlg) { //TODO
 //			out.println("arraySize=" + array.size());
 			out.println("<html><head></head><body>");
 		if (array.size() >= num) {
-			for(String tmp : array){
+			for(Integer tmp : array){
 				out.println(tmp);
 			}
 			//TODO forの中で出力まで実施 or 外で出力
-//			out.println("arraySize=" + array.size());
+			out.println("arraySize=" + array.size());
 //				out.println("<p>その素数は・・・</p>"); //TODO ここだと文字化けする
 //						out.println("primeNumber=" + primeNumber);
 			setPrimeNumberSearchFlg(false);
