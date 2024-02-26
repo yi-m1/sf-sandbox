@@ -91,7 +91,9 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int from = 103;
 					int to = 203;
 					while (primeNumberSearchFlg) {
-						ArrayNode primeNumberResults = getPrimeNumber("35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
+//						ArrayNode primeNumberResults = getPrimeNumber("35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
+//								String.valueOf(from), String.valueOf(to));
+						ArrayNode primeNumberResults = getPrimeNumber("localhost", "aws-webapp-sento2/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
 						if (primeNumberResults == null) {
 							continue;
