@@ -64,7 +64,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int from = 2;
 					int to = 102;
 					while (primeNumberSearchFlg) {
-						ArrayNode primeNumberResults = getPrimeNumber("localhost", "aws-webapp-sento/PrimeNumber",
+						ArrayNode primeNumberResults = getPrimeNumber("172.31.44.222", "aws-webapp/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
 						if (primeNumberResults == null) {
 							continue;
@@ -91,9 +91,7 @@ public class PrimeNumberWebAplServlet extends HttpServlet {
 					int from = 103;
 					int to = 203;
 					while (primeNumberSearchFlg) {
-//						ArrayNode primeNumberResults = getPrimeNumber("35.78.185.41", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
-//								String.valueOf(from), String.valueOf(to));
-						ArrayNode primeNumberResults = getPrimeNumber("localhost", "aws-webapp-sento2/PrimeNumber",
+						ArrayNode primeNumberResults = getPrimeNumber("172.31.6.103", "Aws-0.0.1-SNAPSHOT/PrimeNumber",
 								String.valueOf(from), String.valueOf(to));
 						if (primeNumberResults == null) {
 							continue;
